@@ -8,7 +8,9 @@ export default function SettingsModal({
   onSaveSettings,
   onReloadAllData,
   onClearAllData,
-  onShowToast
+  onShowToast,
+  cloudSyncStatus,
+  onSyncNow
 }) {
   const [pomoStudy, setPomoStudy] = useState(settings?.pomodoro?.studyMinutes || 25);
   const [pomoShort, setPomoShort] = useState(settings?.pomodoro?.shortBreakMinutes || 5);
@@ -71,20 +73,25 @@ export default function SettingsModal({
         </p>
       </div>
 
-      {/* LocalStorage Notice & Cloud Sync Readiness */}
+      {/* Local storage and cloud sync status */}
       <div className="p-6 rounded-3xl bg-blue-50/80 dark:bg-slate-800/60 border border-blue-200/80 dark:border-slate-700 space-y-3">
         <div className="flex items-center gap-2 text-blue-800 dark:text-blue-300 font-bold text-sm">
           <span>💾</span>
-          <span>How Your Data is Stored</span>
+          <span>Data Storage & Cloud Sync</span>
         </div>
         <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-          StudyFlow automatically saves your subjects, goals, and study sessions directly in your browser's <strong>localStorage</strong>.
-          Your data remains saved when you refresh or reopen the website.
+          Your data is saved locally first, so StudyFlow remains usable offline. When Supabase is configured, changes are also synced to your private cloud record.
         </p>
         <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-          <strong>Important Note:</strong> Because data is stored in your current browser, it does not automatically synchronize to another computer or phone.
-          To keep your records safe or transfer them to another device, use the <strong>Export Backup (JSON)</strong> button below!
+          <strong>Status:</strong> {cloudSyncStatus?.message || 'Cloud sync is unavailable.'}
         </p>
+        <button
+          onClick={onSyncNow}
+          disabled={cloudSyncStatus?.status === 'syncing'}
+          className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-bold text-xs transition"
+        >
+          {cloudSyncStatus?.status === 'syncing' ? 'Syncing...' : 'Sync Now'}
+        </button>
       </div>
 
       {/* Backup & Data Transfer Section */}

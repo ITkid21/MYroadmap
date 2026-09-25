@@ -69,6 +69,16 @@ export const DEFAULT_SETTINGS = {
   }
 };
 
+let cloudSyncHandler = null;
+
+export function setCloudSyncHandler(handler) {
+  cloudSyncHandler = handler;
+}
+
+function notifyCloudSync() {
+  cloudSyncHandler?.();
+}
+
 // Safe JSON parser
 function safeGet(key, fallback) {
   try {
@@ -103,7 +113,9 @@ export const Storage = {
   },
 
   saveSubjects(subjects) {
-    return safeSet(STORAGE_KEYS.SUBJECTS, subjects);
+    const saved = safeSet(STORAGE_KEYS.SUBJECTS, subjects);
+    if (saved) notifyCloudSync();
+    return saved;
   },
 
   // Sessions
@@ -113,7 +125,9 @@ export const Storage = {
   },
 
   saveSessions(sessions) {
-    return safeSet(STORAGE_KEYS.SESSIONS, sessions);
+    const saved = safeSet(STORAGE_KEYS.SESSIONS, sessions);
+    if (saved) notifyCloudSync();
+    return saved;
   },
 
   addSession(session) {
@@ -150,7 +164,9 @@ export const Storage = {
   },
 
   saveGoals(goals) {
-    return safeSet(STORAGE_KEYS.GOALS, goals);
+    const saved = safeSet(STORAGE_KEYS.GOALS, goals);
+    if (saved) notifyCloudSync();
+    return saved;
   },
 
   // Settings
@@ -159,7 +175,9 @@ export const Storage = {
   },
 
   saveSettings(settings) {
-    return safeSet(STORAGE_KEYS.SETTINGS, settings);
+    const saved = safeSet(STORAGE_KEYS.SETTINGS, settings);
+    if (saved) notifyCloudSync();
+    return saved;
   },
 
   // Active Timer state (persisted across refresh/reopen)
@@ -185,7 +203,9 @@ export const Storage = {
   },
 
   saveRoadmapProgress(progress) {
-    return safeSet(STORAGE_KEYS.ROADMAP_PROGRESS, progress);
+    const saved = safeSet(STORAGE_KEYS.ROADMAP_PROGRESS, progress);
+    if (saved) notifyCloudSync();
+    return saved;
   },
 
   getSubjectRoadmaps() {
@@ -194,7 +214,9 @@ export const Storage = {
   },
 
   saveSubjectRoadmaps(roadmaps) {
-    return safeSet(STORAGE_KEYS.SUBJECT_ROADMAPS, roadmaps);
+    const saved = safeSet(STORAGE_KEYS.SUBJECT_ROADMAPS, roadmaps);
+    if (saved) notifyCloudSync();
+    return saved;
   },
 
   // Full backup payload
@@ -205,8 +227,21 @@ export const Storage = {
       subjects: this.getSubjects(),
       sessions: this.getSessions(),
       goals: this.getGoals(),
-      settings: this.getSettings()
+      settings: this.getSettings(),
+      roadmapProgress: this.getRoadmapProgress(),
+      subjectRoadmaps: this.getSubjectRoadmaps()
     };
+  },
+
+  replaceAllData(data) {
+    if (Array.isArray(data.subjects)) safeSet(STORAGE_KEYS.SUBJECTS, data.subjects);
+    if (Array.isArray(data.sessions)) safeSet(STORAGE_KEYS.SESSIONS, data.sessions);
+    if (data.goals && typeof data.goals === 'object') safeSet(STORAGE_KEYS.GOALS, data.goals);
+    if (data.settings && typeof data.settings === 'object') safeSet(STORAGE_KEYS.SETTINGS, data.settings);
+    if (data.roadmapProgress && typeof data.roadmapProgress === 'object') {
+      safeSet(STORAGE_KEYS.ROADMAP_PROGRESS, data.roadmapProgress);
+    }
+    if (Array.isArray(data.subjectRoadmaps)) safeSet(STORAGE_KEYS.SUBJECT_ROADMAPS, data.subjectRoadmaps);
   },
 
   // Clear all data
@@ -218,5 +253,6 @@ export const Storage = {
     localStorage.removeItem(STORAGE_KEYS.ACTIVE_TIMER);
     localStorage.removeItem(STORAGE_KEYS.ROADMAP_PROGRESS);
     localStorage.removeItem(STORAGE_KEYS.SUBJECT_ROADMAPS);
+    notifyCloudSync();
   }
 };

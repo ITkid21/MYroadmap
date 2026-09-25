@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Storage } from './utils/storage.js';
+import { Storage, setCloudSyncHandler } from './utils/storage.js';
+import { initializeCloudSync, queueCloudSync, syncNow } from './utils/cloudSync.js';
 import { sound } from './utils/audioUtils.js';
 
 import Sidebar from './components/Sidebar.jsx';
@@ -33,6 +34,17 @@ export default function App() {
   // UI States
   const [darkMode, setDarkMode] = useState(() => settings.darkMode ?? true);
   const [toast, setToast] = useState(null);
+  const [cloudSyncStatus, setCloudSyncStatus] = useState({
+    status: 'connecting',
+    message: 'Checking cloud sync...'
+  });
+
+  useEffect(() => {
+    setCloudSyncHandler(queueCloudSync);
+    initializeCloudSync(setCloudSyncStatus).then((result) => {
+      if (result.enabled) handleReloadAllData();
+    });
+  }, []);
 
   // Sync dark mode class to <html>
   useEffect(() => {
@@ -144,6 +156,10 @@ export default function App() {
   const handleClearAllData = () => {
     Storage.clearAll();
     handleReloadAllData();
+  };
+
+  const handleSyncNow = async () => {
+    await syncNow();
   };
 
   // Quick start a specific subject from Dashboard
@@ -348,6 +364,8 @@ export default function App() {
               onReloadAllData={handleReloadAllData}
               onClearAllData={handleClearAllData}
               onShowToast={showToast}
+              cloudSyncStatus={cloudSyncStatus}
+              onSyncNow={handleSyncNow}
             />
           )}
         </main>
