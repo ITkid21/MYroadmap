@@ -1,0 +1,18 @@
+{
+  "title": "My Subject Roadmap",
+  "description": "What this roadmap helps me learn.",
+  "phases": [
+    {
+      "name": "Phase 1",
+      "duration": "2 weeks",
+      "topics": ["Topic one", "Topic two"],
+      "resources": [
+        { "name": "Official documentation", "url": "https://example.com" }
+      ]
+    }
+  ],
+  "weekly_rhythm": [
+    { "days": "Mon-Fri", "activity": "Study one concept and practice" }
+  ],
+  "tip": "Keep short notes after each session."
+}

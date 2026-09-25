@@ -1,0 +1,67 @@
+{
+  "title": "Backend + DSA Internship Roadmap",
+  "description": "Build backend systems, strengthen DSA patterns, and ship AI-enabled projects while preparing for internships.",
+  "groups": [
+    {
+      "id": "backend",
+      "name": "Backend foundations",
+      "description": "Build one real API end to end and fill gaps as the project exposes them.",
+      "subject": "Python",
+      "items": [
+        { "id": "backend-python", "label": "Python OOP, error handling, async/await, pytest, and clean code" },
+        { "id": "backend-fastapi", "label": "FastAPI routing, middleware, dependency injection, and background jobs" },
+        { "id": "backend-sql", "label": "SQL joins, indexes, transactions, normalization, and query optimization" },
+        { "id": "backend-api", "label": "REST API design: pagination, filtering, validation, status codes, and versioning" },
+        { "id": "backend-auth", "label": "Authentication, password hashing, CORS, and rate limiting" },
+        { "id": "backend-infra", "label": "Redis, background workers, Docker, CI/CD, deployment, logging, and monitoring" },
+        { "id": "backend-design", "label": "Basic system design vocabulary and trade-offs" }
+      ],
+      "resources": [
+        { "name": "FastAPI documentation", "url": "https://fastapi.tiangolo.com/" },
+        { "name": "Backend roadmap", "url": "https://roadmap.sh/backend" },
+        { "name": "Docker Get Started", "url": "https://docs.docker.com/get-started/" }
+      ]
+    },
+    {
+      "id": "dsa",
+      "name": "DSA patterns",
+      "description": "Understand, visualize, implement, practice, and revisit each pattern.",
+      "subject": "DSA",
+      "items": [
+        { "id": "dsa-arrays", "label": "Arrays, strings, and hashing" },
+        { "id": "dsa-window", "label": "Two pointers and sliding window" },
+        { "id": "dsa-linear", "label": "Stacks, queues, and linked lists" },
+        { "id": "dsa-recursion", "label": "Recursion and backtracking" },
+        { "id": "dsa-search", "label": "Binary search" },
+        { "id": "dsa-trees", "label": "Trees, BSTs, heaps, and priority queues" },
+        { "id": "dsa-graphs", "label": "Graphs" },
+        { "id": "dsa-advanced", "label": "Greedy algorithms and dynamic programming" }
+      ],
+      "resources": [
+        { "name": "NeetCode roadmap", "url": "https://neetcode.io/roadmap" },
+        { "name": "Visualgo", "url": "https://visualgo.net/en" },
+        { "name": "LeetCode", "url": "https://leetcode.com/" }
+      ]
+    },
+    {
+      "id": "ai-backend",
+      "name": "AI-enabled backend projects",
+      "description": "Apply backend fundamentals to useful RAG, LLM, and analytics products.",
+      "subject": "Python",
+      "items": [
+        { "id": "ai-ingestion", "label": "Build document ingestion and validation" },
+        { "id": "ai-rag", "label": "Add embeddings, vector search, and a RAG pipeline" },
+        { "id": "ai-production", "label": "Add auth, logging, usage tracking, and deployment" },
+        { "id": "ai-portfolio", "label": "Write tests, documentation, and a portfolio case study" }
+      ],
+      "resources": [
+        { "name": "System Design Primer", "url": "https://github.com/donnemartin/system-design-primer" }
+      ]
+    }
+  ],
+  "reminders": [
+    "Keep DSA and AI learning running in parallel with backend.",
+    "Revisit each DSA topic a week after first solving it.",
+    "Quality of projects matters more than quantity."
+  ]
+}

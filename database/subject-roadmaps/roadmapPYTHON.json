@@ -1,0 +1,42 @@
+{
+  "title": "Python & DSA Learning Roadmap",
+  "description": "Python fundamentals, data structures, algorithms, and dynamic programming.",
+  "phases": [
+    {
+      "id": "python-fundamentals",
+      "name": "Python Fundamentals",
+      "duration": "1-2 weeks",
+      "topics": ["Syntax", "Data types", "Loops", "Functions", "String manipulation", "Regex", "File I/O (CSV/JSON)"],
+      "resources": [
+        { "name": "Python Official Docs", "url": "https://docs.python.org/3/" },
+        { "name": "Automate the Boring Stuff", "url": "https://automatetheboringstuff.com/" }
+      ]
+    },
+    {
+      "id": "python-dsa",
+      "name": "Data Structures Basics",
+      "duration": "2-3 weeks",
+      "topics": ["Arrays", "Strings", "Recursion", "Linked lists", "Stacks/Queues", "Trees", "Graphs", "Hashing"],
+      "resources": [
+        { "name": "NeetCode", "url": "https://neetcode.io/" },
+        { "name": "LeetCode", "url": "https://leetcode.com/" }
+      ]
+    },
+    {
+      "id": "python-dp",
+      "name": "Dynamic Programming",
+      "duration": "2-3 weeks",
+      "topics": ["Memoization vs tabulation", "0/1 Knapsack", "Longest Common Subsequence", "Shortest paths", "Matrix chain multiplication", "Edit distance"],
+      "resources": [
+        { "name": "NeetCode DP", "url": "https://neetcode.io/" },
+        { "name": "Striver's DP Series", "url": "https://takeuforward.org/" }
+      ]
+    }
+  ],
+  "weekly_rhythm": [
+    { "days": "Mon-Fri", "activity": "1 new concept or video plus 2-3 practice problems" },
+    { "days": "Sat", "activity": "Review the week's problems and retry difficult ones" },
+    { "days": "Sun", "activity": "Light review or rest" }
+  ],
+  "tip": "Keep one notes document split into Python Core and DSA/DP, with an example and your explanation after each topic."
+}
